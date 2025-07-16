@@ -2,8 +2,10 @@ import { useState, useRef, useEffect } from "react"
 import { nanoid } from "nanoid"
 import Confetti from 'react-confetti'
 import Dice from "./Components/Dice"
+import { Analytics } from "@vercel/analytics/react"
+
 export default function App() {
-  const [dice, setDice] = useState(()=> generateAllNewDice())
+  const [dice, setDice] = useState(() => generateAllNewDice())
 
   function generateAllNewDice() {
     return new Array(10)
@@ -19,13 +21,13 @@ export default function App() {
 
   const gameWon = dice.every(item => item.isHeld)
     && dice.every(item => item.value === dice[0].value)
-   
+
   //Use useEffect to render the focus to button when the gameWon = true
-  useEffect(()=> {
+  useEffect(() => {
     buttonRef.current.focus()
   }, [gameWon])
   function getRoll() {
-    if (gameWon) { 
+    if (gameWon) {
       setDice(generateAllNewDice())
     }
     else {
@@ -56,9 +58,10 @@ export default function App() {
       <div className="container">
         {diceElement}
       </div>
-      {gameWon && <Confetti/>}
+      {gameWon && <Confetti />}
       <button ref={buttonRef} className="roll-button" onClick={getRoll}>{gameWon ? "New Game" : "Roll Dice"}</button>
 
+      <Analytics />
     </main>
 
   );
