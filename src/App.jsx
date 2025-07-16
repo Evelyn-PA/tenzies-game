@@ -53,12 +53,11 @@ export default function App() {
 
   return (
     <main>
-      <Analytics />
-
       <h1>Tenzies Game</h1>
       <p className="instructions">Roll until all dice are the same.<br />Click each dice to freeze it at its current value between rolls.</p>
       <div className="container">
         {diceElement}
+        <Analytics />
       </div>
       {gameWon && <Confetti />}
       <button ref={buttonRef} className="roll-button" onClick={getRoll}>{gameWon ? "New Game" : "Roll Dice"}</button>
